@@ -65,6 +65,8 @@
 | Feature | Description |
 | ------- | ----------- |
 | 💰 **Native CNY billing** | Quota is displayed in CNY: top-up amount equals RMB paid, credited quota = amount ÷ Price × QuotaPerUnit. No exchange-rate conversion in the wallet; applies to all top-up channels such as Epay and Waffo (`controller/topup.go`, `model/topup.go`) |
+| 🎉 **Recharge bonus (pay 1 get 2)** | New uniform top-up bonus: set `payment_setting.amount_bonus` to `1.0` and every ¥1 paid credits ¥2 of quota ("充多少送多少"). Backend multiplies credited quota in `model/topupQuotaFromAmount` (covers Epay/Waffo/pancake/补单 paths) and `controller/getTopUpQuota` keeps validation consistent; bonus ratio is exposed via `/api/user/topup/info`. The wallet recharge card shows a 100%-bonus banner, per-preset credited amounts ("到账 ¥2"), custom-amount credited line, and a credited amount row in the payment confirm dialog — all hardcoded Chinese for the zh audience |
+| 🈷️ **Chinese-first i18n** | Recharge UI texts are written directly in Chinese (banner, "支付"/"到账", placeholders). Site language no longer follows the browser locale: it defaults to Chinese (fallback `zhCN`) and honors a user's manual switch only; old language caches are reset via a new storage key |
 | 🎁 **Daily check-in + header button** | New `CheckinButton` component in both authenticated and public headers, with Turnstile support; guides anonymous visitors to sign up |
 | 📦 **Subscription plans page `/subscribe`** | Public plan listing (reads a `plans.json` snapshot when logged out, system API when logged in), supports Alipay purchase, balance payment, and free claims; auto group upgrade on purchase, periodic quota reset, auto downgrade on expiry |
 | 📖 **Built-in usage docs `/docs`** | A brand-new 12-section beginner guide (intro, quick start, check-in, top-up, group explanation, API keys, pricing, Playground, third-party clients, API examples, FAQ) with sticky anchor navigation |
@@ -73,6 +75,25 @@
 
 > [!TIP]
 > Try it live at <https://ai.88531.cn>: get ¥0.1 on sign-up and ¥0.5 per daily check-in — no deposit needed to try 30+ models including GLM, DeepSeek, and Kimi.
+
+### 🗒️ 更新日志（Latest update — 充值优惠上线）
+
+**2026-09-24 · v"充值优惠"（RC42）**
+
+1. **充值优惠「充 1 元到账 2 元」**
+   - 后端新增统一赠送比例 `payment_setting.amount_bonus`：`1` = 充多少送多少（¥1 实到 ¥2），`0` = 关闭；改数据库一行再重启即可调整，无需改代码
+   - 到账额度统一在 `topupQuotaFromAmount` / `getTopUpQuota` 乘以 `(1 + bonus)`，覆盖易支付、Waffo、Pancake、管理员补单全部到账路径；Stripe/Creem 保持原有逻辑
+   - 携带回归测试 `TestTopUpQuotaAppliesAmountBonus`（含赠送关闭恢复原状）
+2. **充值页展示优惠**（位置：控制台 → 钱包）
+   - 顶部绿色横幅：「充值优惠：充值 1 元实际到账 2 元，以此类推，充多少送多少。」
+   - 每个金额档显示「到账 ¥x」（绿色）＋「支付 ¥x · 已省 ¥x」
+   - 自定义金额旁显示「待支付金额」＋「到账金额」两行；输入框占位符改「最低充值 N」
+   - 支付确认弹窗新增「到账金额」绿色行
+3. **文档页 `/docs`** 第 05 节「充值与包月套餐」加入优惠说明框（¥10→¥20、¥100→¥200 举例）
+4. **关于页**（后台可编辑的 HTML 内容）新增「🎁 充值优惠 · 充 1 元到账 2 元」小节，含 ¥1/¥10/¥100 到账价格卡片
+5. **默认中文**：i18n 不再跟随浏览器语言，默认中文；充值页关键文案直接中文写死，避免英文浏览器显示英文
+
+> 配置入口：数据库 `options` 表 `payment_setting.amount_bonus`（如改回 `0` 即取消优惠）。关于页优惠小节保存在 `options` 表的 `About` 键中，可在后台 系统设置 → 导航 内容里继续编辑。
 
 ---
 

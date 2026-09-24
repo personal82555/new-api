@@ -6145,5 +6145,8 @@
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V4",
     "Zoom": "Zoom"
-  }
+  },
+  "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "Ưu đãi nạp tiền: nạp {{pay}} nhận {{credit}} — nạp càng nhiều nhận càng nhiều.",
+  "Credited amount": "Số tiền nhận được",
+  "Credited {{amount}}": "Nhận {{amount}}"
 }

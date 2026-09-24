@@ -6145,5 +6145,8 @@
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V 4",
     "Zoom": "ズーム"
-  }
+  },
+  "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "チャージ特典：{{pay}}元の支払いで{{credit}}元が付与されます。金額が多いほどお得です。",
+  "Credited amount": "付与額",
+  "Credited {{amount}}": "付与 {{amount}}"
 }

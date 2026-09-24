@@ -72,6 +72,7 @@ interface RechargeFormCardProps {
   loading?: boolean
   priceRatio?: number
   usdExchangeRate?: number
+  amountBonus?: number
   onOpenBilling?: () => void
   creemProducts?: CreemProduct[]
   enableCreemTopup?: boolean
@@ -102,6 +103,7 @@ export function RechargeFormCard({
   loading,
   priceRatio = 1,
   usdExchangeRate = 1,
+  amountBonus = 0,
   onOpenBilling,
   creemProducts,
   enableCreemTopup,
@@ -219,6 +221,12 @@ export function RechargeFormCard({
       {/* Online Topup Section */}
       {hasAnyTopup ? (
         <div className='space-y-4 sm:space-y-6'>
+          {hasConfigurableTopup && amountBonus > 0 && (
+            <div className='flex items-center gap-2.5 rounded-lg border border-green-200 bg-green-500/10 px-3 py-2.5 text-sm font-medium text-green-700 dark:border-green-500/40 dark:text-green-400'>
+              <Gift className='h-4 w-4 shrink-0' aria-hidden='true' />
+              <span>充值优惠：充值 1 元实际到账 {(1 + amountBonus) * 1} 元，以此类推，充多少送多少。</span>
+            </div>
+          )}
           {hasConfigurableTopup && (
             <>
               {presetAmounts.length > 0 && (
@@ -266,11 +274,17 @@ export function RechargeFormCard({
                             )}
                           </div>
                           <div className='text-muted-foreground mt-1.5 w-full text-xs sm:mt-2'>
-                            Pay {formatCurrency(actualPrice)}
+                            {amountBonus > 0 && (
+                              <span className='font-semibold text-green-600'>
+                                {`到账 ${formatNumber(displayValue * (1 + amountBonus))}`}
+                                {' · '}
+                              </span>
+                            )}
+                            {`支付 ${formatCurrency(actualPrice)}`}
                             {hasDiscount && savedAmount > 0 && (
                               <span className='text-green-600'>
                                 {' '}
-                                • Save {formatCurrency(savedAmount)}
+                                {`· 已省 ${formatCurrency(savedAmount)}`}
                               </span>
                             )}
                           </div>
@@ -295,19 +309,33 @@ export function RechargeFormCard({
                     value={localAmount}
                     onChange={(e) => handleAmountChange(e.target.value)}
                     min={minTopup}
-                    placeholder={`Minimum ${minTopup}`}
+                    placeholder={`最低充值 ${minTopup}`}
                     className='h-9 text-base sm:h-10 sm:text-lg'
                   />
-                  <div className='bg-muted/30 flex min-h-9 items-center justify-between gap-2 rounded-md border px-3 lg:min-w-52'>
-                    <span className='text-muted-foreground truncate text-xs'>
-                      {t('Amount to pay:')}
-                    </span>
-                    {calculating ? (
-                      <Skeleton className='h-5 w-16' />
-                    ) : (
-                      <span className='text-sm font-semibold'>
-                        {formatCurrency(paymentAmount)}
+                  <div className='bg-muted/30 flex min-h-9 flex-col items-center justify-center gap-0 rounded-md border px-3 lg:min-w-52'>
+                    <div className='flex items-center justify-between gap-2 self-stretch'>
+                      <span className='text-muted-foreground truncate text-xs'>
+                        待支付金额：
                       </span>
+                      {calculating ? (
+                        <Skeleton className='h-5 w-16' />
+                      ) : (
+                        <span className='text-sm font-semibold'>
+                          {formatCurrency(paymentAmount)}
+                        </span>
+                      )}
+                    </div>
+                    {amountBonus > 0 && (
+                      <div className='flex items-center justify-between gap-2 self-stretch text-[11px] leading-4'>
+                        <span className='text-muted-foreground truncate'>
+                          到账金额
+                        </span>
+                        <span className='font-semibold text-green-600'>
+                          {formatNumber(
+                            topupAmount * usdExchangeRate * (1 + amountBonus)
+                          )}
+                        </span>
+                      </div>
                     )}
                   </div>
                 </div>

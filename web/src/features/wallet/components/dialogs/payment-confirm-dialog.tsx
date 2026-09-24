@@ -47,6 +47,7 @@ interface PaymentConfirmDialogProps {
   processing: boolean
   discountRate?: number
   usdExchangeRate?: number
+  amountBonus?: number
 }
 
 export function PaymentConfirmDialog({
@@ -60,11 +61,13 @@ export function PaymentConfirmDialog({
   processing,
   discountRate = DEFAULT_DISCOUNT_RATE,
   usdExchangeRate = 1,
+  amountBonus = 0,
 }: PaymentConfirmDialogProps) {
   const { t } = useTranslation()
   const hasDiscount = discountRate > 0 && discountRate < 1 && paymentAmount > 0
   const originalAmount = hasDiscount ? paymentAmount / discountRate : 0
   const discountAmount = hasDiscount ? originalAmount - paymentAmount : 0
+  const creditedAmount = topupAmount * usdExchangeRate * (1 + amountBonus)
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -91,6 +94,21 @@ export function PaymentConfirmDialog({
               })}
             </span>
           </div>
+
+          {amountBonus > 0 && (
+            <div className='flex items-center justify-between'>
+              <span className='text-muted-foreground text-sm'>
+                到账金额
+              </span>
+              <span className='text-lg font-semibold text-green-600'>
+                {formatLocalCurrencyAmount(creditedAmount, {
+                  digitsLarge: 2,
+                  digitsSmall: 2,
+                  abbreviate: false,
+                })}
+              </span>
+            </div>
+          )}
 
           <div className='flex items-center justify-between'>
             <span className='text-muted-foreground text-sm'>

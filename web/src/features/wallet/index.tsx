@@ -323,6 +323,7 @@ export function Wallet(props: WalletProps) {
                       : (status?.price as number) || 1
                   }
                   usdExchangeRate={effectiveUsdExchangeRate}
+                  amountBonus={topupInfo?.amount_bonus ?? 0}
                   onOpenBilling={() => setBillingDialogOpen(true)}
                   creemProducts={topupInfo?.creem_products}
                   enableCreemTopup={topupInfo?.enable_creem_topup}
@@ -369,6 +370,7 @@ export function Wallet(props: WalletProps) {
         processing={processing || waffoProcessing || pancakeProcessing}
         discountRate={getDiscountRate()}
         usdExchangeRate={effectiveUsdExchangeRate}
+        amountBonus={topupInfo?.amount_bonus ?? 0}
       />
 
       <TransferDialog

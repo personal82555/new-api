@@ -216,6 +216,11 @@ export function Docs() {
               ，页面会自动跳回本站
             </li>
           </ol>
+          <div className='rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700 dark:border-green-500/40 dark:bg-green-950 dark:text-green-300'>
+            🎉 <b>充值优惠</b>：充值 <b>¥1 实际到账 ¥2</b>
+            ，以此类推——充多少送多少（100% 赠送）。例如支付 ¥10 到账 ¥20
+            ，支付 ¥100 到账 ¥200，到账额度可用于全部模型与套餐。
+          </div>
           <h3>方式二：包月套餐（推荐）</h3>
           <p>
             前往{' '}

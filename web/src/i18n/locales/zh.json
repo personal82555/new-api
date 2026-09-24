@@ -6145,5 +6145,8 @@
     "Zhipu": "智谱",
     "Zhipu V4": "智谱 V4",
     "Zoom": "缩放"
-  }
+  },
+  "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "充值优惠：充值 {{pay}} 元实际到账 {{credit}} 元，以此类推，充多少送多少。",
+  "Credited amount": "到账金额",
+  "Credited {{amount}}": "到账 {{amount}}"
 }

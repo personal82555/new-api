@@ -6145,5 +6145,8 @@
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V4",
     "Zoom": "Zoom"
-  }
+  },
+  "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "Бонус за пополнение: платите ¥{{pay}} — получаете ¥{{credit}}. Чем больше пополнение, тем больше бонус.",
+  "Credited amount": "Начислено",
+  "Credited {{amount}}": "Начислено {{amount}}"
 }

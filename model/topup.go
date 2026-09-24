@@ -15,6 +15,8 @@ import (
 
 // topupQuotaFromAmount 将充值记录的 Amount 换算为到账 quota。
 // CNY 展示模式下 Amount 为人民币金额，需先除以 Price 再乘 QuotaPerUnit。
+// 充值赠送比例（payment_setting.amount_bonus）在所有换算路径统一叠加，
+// 例如 amount_bonus=1.0 时充值 1 元实际到账 2 元。
 func topupQuotaFromAmount(amount int64) decimal.Decimal {
 	d := decimal.NewFromInt(amount)
 	if operation_setting.GetQuotaDisplayType() == operation_setting.QuotaDisplayTypeCNY {
@@ -23,6 +25,7 @@ func topupQuotaFromAmount(amount int64) decimal.Decimal {
 			d = d.Div(dPrice)
 		}
 	}
+	d = d.Mul(decimal.NewFromFloat(1 + operation_setting.GetTopupBonusRatio()))
 	return d.Mul(decimal.NewFromFloat(common.QuotaPerUnit))
 }
 

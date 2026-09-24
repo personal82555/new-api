@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"math"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -72,6 +73,36 @@ func TestTopUpQuotaValidation(t *testing.T) {
 			assert.Equal(t, tc.wantQuota, quota)
 		})
 	}
+}
+
+func TestTopUpQuotaAppliesAmountBonus(t *testing.T) {
+	oldQuotaPerUnit := common.QuotaPerUnit
+	oldDisplayType := operation_setting.GetGeneralSetting().QuotaDisplayType
+	oldPrice := operation_setting.Price
+	oldBonus := operation_setting.GetPaymentSetting().AmountBonus
+	common.QuotaPerUnit = 500000
+	operation_setting.GetGeneralSetting().QuotaDisplayType = operation_setting.QuotaDisplayTypeCNY
+	operation_setting.Price = 7.1
+	// 1.0 = 充值多少到账翻倍（充 1 元到账 2 元）
+	operation_setting.GetPaymentSetting().AmountBonus = 1.0
+	t.Cleanup(func() {
+		common.QuotaPerUnit = oldQuotaPerUnit
+		operation_setting.GetGeneralSetting().QuotaDisplayType = oldDisplayType
+		operation_setting.Price = oldPrice
+		operation_setting.GetPaymentSetting().AmountBonus = oldBonus
+	})
+
+	quota, err := getTopUpQuota(1)
+	require.NoError(t, err)
+	// 到账 = round(1 / 7.1 × 500000) × (1 + 1)，即充值 1 元实际到账 2 元
+	expectedBase := int(math.Round(1 / 7.1 * 500000))
+	assert.Equal(t, expectedBase*2, quota)
+
+	// bonus=0 恢复无赠送行为
+	operation_setting.GetPaymentSetting().AmountBonus = 0
+	quota, err = getTopUpQuota(1)
+	require.NoError(t, err)
+	assert.Equal(t, expectedBase, quota)
 }
 
 func TestValidateTopUpQuotaReturnsMaximumAmount(t *testing.T) {

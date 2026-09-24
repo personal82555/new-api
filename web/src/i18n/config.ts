@@ -44,7 +44,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'en',
+    // 站点面向中文用户：无语言偏好缓存时默认中文，同时支持在界面上手动切换语言
+    fallbackLng: 'zhCN',
     supportedLngs: ['en', 'zhCN', 'fr', 'ru', 'ja', 'vi', 'zhTW'],
     load: 'currentOnly',
     nsSeparator: false, // Allow literal colons in keys (e.g., URLs, labels)
@@ -53,7 +54,10 @@ i18n
       escapeValue: false, // not needed for react as it escapes by default
     },
     detection: {
-      order: ['localStorage', 'navigator'],
+      // 仅信任已保存的语言偏好，不再跟随浏览器语言，避免英文环境误显示英文
+      order: ['localStorage'],
+      // 使用新的存储键名：丢弃旧版本残留的浏览器语言缓存（如曾识别为 en 的用户）
+      lookupLocalStorage: 'i18nextLngV2',
       caches: ['localStorage'],
       // Browsers report `zh-CN`/`zh-TW`/`zh`; map them onto our `zhCN`/`zhTW`
       // codes (non-Chinese codes pass through for normal supportedLngs matching).

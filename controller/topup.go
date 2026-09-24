@@ -119,6 +119,7 @@ func GetTopUpInfo(c *gin.Context) {
 		"waffo_pancake_min_topup": setting.WaffoPancakeMinTopUp,
 		"amount_options":          operation_setting.GetPaymentSetting().AmountOptions,
 		"discount":                operation_setting.GetPaymentSetting().AmountDiscount,
+		"amount_bonus":            operation_setting.GetTopupBonusRatio(),
 		"topup_link":              common.TopUpLink,
 	}
 	common.ApiSuccess(c, data)
@@ -210,7 +211,6 @@ func getMinTopup() int64 {
 
 func getTopUpQuota(amount int64) (int, error) {
 	quota := decimal.NewFromInt(amount)
-	// CNY 模式：amount 为人民币金额，到账额度 = 人民币 / Price × QuotaPerUnit（换算为美元额度）
 	if operation_setting.GetQuotaDisplayType() == operation_setting.QuotaDisplayTypeCNY {
 		dPrice := decimal.NewFromFloat(operation_setting.Price)
 		if dPrice.IsPositive() {
@@ -223,6 +223,8 @@ func getTopUpQuota(amount int64) (int, error) {
 	} else {
 		quota = quota.Mul(decimal.NewFromFloat(common.QuotaPerUnit))
 	}
+	// 到账额度同样叠加统一赠送比例，确保校验与实际到账一致（如充值 1 元到账 2 元）
+	quota = quota.Mul(decimal.NewFromFloat(1 + operation_setting.GetTopupBonusRatio()))
 	return common.WalletQuotaFromDecimalStrict(quota)
 }
 
