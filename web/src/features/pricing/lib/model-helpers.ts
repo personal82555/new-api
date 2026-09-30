@@ -107,3 +107,21 @@ export function replaceModelInPath(path: string, modelName: string): string {
 export function isTokenBasedModel(model: PricingModel): boolean {
   return model.quota_type === QUOTA_TYPE_VALUES.TOKEN
 }
+
+/**
+ * Check if a model is free of charge (0 price with standard billing).
+ * Covers both token-based models with zero ratios and per-request models
+ * with a zero fixed price. Dynamic/task-billing models are excluded because
+ * their cost cannot be derived from the static price fields.
+ */
+export function isFreeModel(model: PricingModel): boolean {
+  // Inline task/dynamic checks to avoid an import cycle with dynamic-price.ts.
+  const isTaskBilling = Object.keys(model.billing_usage_schema ?? {}).length > 0
+  const isDynamic =
+    model.billing_mode === 'tiered_expr' && Boolean(model.billing_expr)
+  if (isTaskBilling || isDynamic) return false
+  if (model.quota_type === QUOTA_TYPE_VALUES.TOKEN) {
+    return (model.model_ratio ?? 0) === 0
+  }
+  return (model.model_price ?? 0) === 0
+}

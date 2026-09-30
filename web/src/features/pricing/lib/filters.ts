@@ -25,6 +25,7 @@ import {
 } from '../constants'
 import type { PricingModel } from '../types'
 import { hasTaskUsageSchema } from './dynamic-price'
+import { isFreeModel } from './model-helpers'
 
 // ----------------------------------------------------------------------------
 // Filter Utilities
@@ -79,6 +80,9 @@ export function filterByQuotaType(
   quotaType: string
 ): PricingModel[] {
   if (quotaType === QUOTA_TYPES.ALL) return models
+  if (quotaType === QUOTA_TYPES.FREE) {
+    return models.filter((m) => isFreeModel(m))
+  }
   // Task-usage models form their own bucket, disjoint from token/request.
   if (quotaType === QUOTA_TYPES.TASK) {
     return models.filter((m) => hasTaskUsageSchema(m))

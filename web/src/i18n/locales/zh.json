@@ -6144,7 +6144,11 @@
     "Zero retention": "零数据保留",
     "Zhipu": "智谱",
     "Zhipu V4": "智谱 V4",
-    "Zoom": "缩放"
+    "Zoom": "缩放",
+    "Free models": "免费模型",
+    "Today's Free Models": "今日免费模型",
+    "{{count}} free models available": "{{count}} 个免费模型",
+    "View all free models": "查看全部免费模型"
   },
   "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "充值优惠：充值 {{pay}} 元实际到账 {{credit}} 元，以此类推，充多少送多少。",
   "Credited amount": "到账金额",

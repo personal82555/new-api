@@ -6144,7 +6144,11 @@
     "Zero retention": "Без хранения данных",
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V4",
-    "Zoom": "Zoom"
+    "Zoom": "Zoom",
+    "Free models": "Бесплатные модели",
+    "Today's Free Models": "Бесплатные модели сегодня",
+    "{{count}} free models available": "Доступно бесплатных моделей: {{count}}",
+    "View all free models": "Все бесплатные модели"
   },
   "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "Бонус за пополнение: платите ¥{{pay}} — получаете ¥{{credit}}. Чем больше пополнение, тем больше бонус.",
   "Credited amount": "Начислено",

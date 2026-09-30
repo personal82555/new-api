@@ -6144,7 +6144,11 @@
     "Zero retention": "データ保持なし",
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V 4",
-    "Zoom": "ズーム"
+    "Zoom": "ズーム",
+    "Free models": "無料モデル",
+    "Today's Free Models": "本日の無料モデル",
+    "{{count}} free models available": "無料モデル: {{count}}",
+    "View all free models": "すべての無料モデルを見る"
   },
   "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "チャージ特典：{{pay}}元の支払いで{{credit}}元が付与されます。金額が多いほどお得です。",
   "Credited amount": "付与額",

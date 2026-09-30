@@ -18,13 +18,14 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import type { PricingModel } from '../types'
 import { hasTaskUsageSchema, isDynamicPricingModel } from './dynamic-price'
-import { isTokenBasedModel } from './model-helpers'
+import { isFreeModel, isTokenBasedModel } from './model-helpers'
 
 export type BillingModeLabelKey =
   | 'Per Request'
   | 'Dynamic Pricing'
   | 'Token-based'
   | 'Task billing'
+  | 'Free models'
 
 export function getBillingModeLabelKey(
   model: PricingModel
@@ -33,6 +34,7 @@ export function getBillingModeLabelKey(
   // ($/1M token, $/credit, $/second) is already carried by the price line.
   if (hasTaskUsageSchema(model)) return 'Task billing'
   if (isDynamicPricingModel(model)) return 'Dynamic Pricing'
+  if (isFreeModel(model)) return 'Free models'
   if (isTokenBasedModel(model)) return 'Token-based'
   return 'Per Request'
 }

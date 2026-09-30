@@ -40,6 +40,8 @@ export function ModelBillingModeBadge(props: ModelBillingModeBadgeProps) {
 
   if (isDynamicPricingModel(props.model)) {
     variant = 'warning'
+  } else if (labelKey === 'Free models') {
+    variant = 'success'
   } else if (labelKey === 'Token-based') {
     variant = 'info'
   }

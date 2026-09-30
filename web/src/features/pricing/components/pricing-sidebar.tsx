@@ -38,6 +38,7 @@ import {
   getQuotaTypeLabels,
 } from '../constants'
 import { hasTaskUsageSchema } from '../lib/dynamic-price'
+import { isFreeModel } from '../lib/model-helpers'
 import { parseTags } from '../lib/filters'
 import type { PricingModel, PricingVendor } from '../types'
 
@@ -217,6 +218,11 @@ export function PricingSidebar(props: PricingSidebarProps) {
       value: QUOTA_TYPES.TASK,
       label: quotaTypeLabels[QUOTA_TYPES.TASK],
       count: countBy(props.models, (model) => hasTaskUsageSchema(model)),
+    },
+    {
+      value: QUOTA_TYPES.FREE,
+      label: quotaTypeLabels[QUOTA_TYPES.FREE],
+      count: countBy(props.models, (model) => isFreeModel(model)),
     },
   ]
 

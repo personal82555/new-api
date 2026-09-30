@@ -6144,7 +6144,11 @@
     "Zero retention": "Không lưu dữ liệu",
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V4",
-    "Zoom": "Zoom"
+    "Zoom": "Zoom",
+    "Free models": "Mô hình miễn phí",
+    "Today's Free Models": "Mô hình miễn phí hôm nay",
+    "{{count}} free models available": "{{count}} mô hình miễn phí",
+    "View all free models": "Xem tất cả mô hình miễn phí"
   },
   "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "Ưu đãi nạp tiền: nạp {{pay}} nhận {{credit}} — nạp càng nhiều nhận càng nhiều.",
   "Credited amount": "Số tiền nhận được",

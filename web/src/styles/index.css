@@ -730,3 +730,60 @@ For commercial licensing, please contact support@quantumnous.com
     display: none;
   }
 }
+
+/* ── Model square free-models banner: shining text ── */
+@keyframes free-banner-shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes free-banner-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.free-banner-shine-text {
+  background: linear-gradient(
+    100deg,
+    oklch(0.75 0.13 85) 0%,
+    oklch(0.95 0.17 95) 20%,
+    oklch(0.85 0.16 75) 40%,
+    oklch(0.98 0.18 100) 60%,
+    oklch(0.75 0.13 85) 80%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: free-banner-shine 3s linear infinite;
+  filter: drop-shadow(0 0 8px oklch(0.8 0.16 95 / 45%));
+}
+
+.free-banner-shine-dot {
+  color: oklch(0.95 0.18 100);
+  animation: free-banner-glow 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px oklch(0.85 0.18 100 / 70%));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .free-banner-shine-text,
+  .free-banner-shine-dot {
+    animation: none;
+  }
+  .free-banner-shine-text {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: oklch(0.85 0.16 95);
+    filter: none;
+  }
+}

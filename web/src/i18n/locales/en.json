@@ -6144,7 +6144,11 @@
     "Zero retention": "Zero retention",
     "Zhipu": "Zhipu",
     "Zhipu V4": "Zhipu V4",
-    "Zoom": "Zoom"
+    "Zoom": "Zoom",
+    "Free models": "Free models",
+    "Today's Free Models": "Today's Free Models",
+    "{{count}} free models available": "{{count}} free models available",
+    "View all free models": "View all free models"
   },
   "Recharge bonus: pay {{pay}} get {{credit}} — the more you top up, the more you get.": "Recharge bonus: pay ¥{{pay}}, get ¥{{credit}} credited — the more you top up, the more you get.",
   "Credited amount": "Credited amount",
