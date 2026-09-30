@@ -47,7 +47,7 @@ export function FreeModelsBanner(props: FreeModelsBannerProps) {
       role='group'
       aria-label={t("Today's Free Models")}
       className={cn(
-        'relative overflow-hidden rounded-xl border border-amber-500/30 bg-amber-500/5 p-3 sm:p-4',
+        'relative overflow-hidden rounded-xl border border-blue-500/30 bg-blue-500/5 p-3 sm:p-4',
         props.className
       )}
     >
@@ -86,7 +86,7 @@ export function FreeModelsBanner(props: FreeModelsBannerProps) {
           size='sm'
           variant='outline'
           onClick={props.onShowFree}
-          className='border-amber-500/40 text-amber-600 hover:bg-amber-500/10 dark:text-amber-400'
+          className='border-blue-500/40 text-blue-600 hover:bg-blue-500/10 dark:text-blue-400'
           aria-label={t('View all free models')}
         >
           {t('View all free models')}
