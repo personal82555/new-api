@@ -56,15 +56,15 @@ export function FreeModelsBanner(props: FreeModelsBannerProps) {
         className='pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_20%_50%,oklch(0.8_0.16_95/12%)_0%,transparent_70%),radial-gradient(ellipse_50%_80%_at_80%_50%,oklch(0.9_0.16_100/10%)_0%,transparent_70%)]'
       />
       <div className='relative flex flex-wrap items-center justify-between gap-3'>
-        <div className='flex min-w-0 items-center gap-2.5'>
-          <Sparkles aria-hidden className='free-banner-shine-dot size-5 shrink-0' />
+        <div className='flex min-w-0 items-center gap-3'>
+          <Sparkles aria-hidden className='free-banner-shine-dot size-7 shrink-0' />
           <div className='min-w-0'>
-            <p className='flex items-center gap-1.5 text-sm font-bold sm:text-base'>
+            <p className='flex items-center gap-2 text-xl leading-tight font-extrabold sm:text-3xl'>
               <span className='free-banner-shine-text'>
                 {t("Today's Free Models")}
               </span>
               <span
-                className='bg-muted text-muted-foreground rounded-md px-1.5 py-0.5 text-[11px] font-semibold'
+                className='bg-muted text-muted-foreground self-center rounded-md px-2 py-0.5 text-xs font-semibold sm:text-sm'
                 aria-label={t('{{count}} free models available', {
                   count: freeModels.length,
                 })}
@@ -73,7 +73,7 @@ export function FreeModelsBanner(props: FreeModelsBannerProps) {
               </span>
             </p>
             <p
-              className='text-muted-foreground mt-0.5 truncate text-xs sm:text-[13px]'
+              className='text-muted-foreground mt-1 truncate text-xs sm:text-[13px]'
               title={names + suffix}
             >
               {names}
